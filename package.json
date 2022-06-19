@@ -1,0 +1,27 @@
+{
+  "name": "@slide-computer/assets",
+  "version": "1.1.6",
+  "description": "Manage assets on an Internet Computer assets canister",
+  "repository": "https://github.com/slide-computer/assets-js",
+  "type": "module",
+  "source": "src/index.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.module.js",
+  "unpkg": "./dist/index.umd.js",
+  "exports": "./dist/index.modern.js",
+  "scripts": {
+    "build": "microbundle",
+    "dev": "microbundle watch"
+  },
+  "author": "Slide",
+  "license": "MIT",
+  "devDependencies": {
+    "microbundle": "^0.15.0",
+    "typescript": "^4.7.3"
+  },
+  "dependencies": {
+    "@dfinity/agent": "^0.11.3",
+    "file-type": "^17.1.2",
+    "p-limit": "^4.0.0"
+  }
+}
