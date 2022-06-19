@@ -96,10 +96,10 @@ const eventListener = (event) => {
         // Update progress of key in map
         progress[event.key] = event.progress;
         // Get total progress of all files in map
-        const {current, total} = Object.values(progress).reduce((acc, val) => {
-            acc.current += val.current;
-            acc.total += val.total;
-        }, { current: 0, total: 0 });
+        const {current, total} = Object.values(progress).reduce((acc, val) => ({
+            current: acc.current + val.current,
+            total: acc.total + val.total,
+        }), {current: 0, total: 0});
         // Log total progress to console (current bytes / total bytes)
         console.log(`Progress: ${Math.floor(current / total * 100)}%`)
     }
