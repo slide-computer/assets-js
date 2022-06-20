@@ -1,6 +1,6 @@
 {
   "name": "@slide-computer/assets",
-  "version": "1.1.9",
+  "version": "1.2.0",
   "description": "Manage assets on an Internet Computer assets canister",
   "repository": "https://github.com/slide-computer/assets-js",
   "keywords": [
