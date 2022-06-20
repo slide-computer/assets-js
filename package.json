@@ -1,14 +1,40 @@
 {
   "name": "@slide-computer/assets",
-  "version": "1.1.7",
+  "version": "1.1.9",
   "description": "Manage assets on an Internet Computer assets canister",
   "repository": "https://github.com/slide-computer/assets-js",
+  "keywords": [
+    "internet computer",
+    "internet-computer",
+    "ic",
+    "dfinity",
+    "assets",
+    "asset",
+    "file",
+    "upload",
+    "agent",
+    "actor",
+    "dfx",
+    "canister",
+    "motoko",
+    "javascript",
+    "typescript",
+    "blockchain",
+    "crypto",
+    "distributed",
+    "api",
+    "sdk"
+  ],
   "type": "module",
   "source": "src/index.ts",
   "main": "./dist/index.cjs",
-  "module": "./dist/index.module.js",
+  "umd:main": "./dist/index.cjs",
+  "module": "./dist/index.module.mjs",
   "unpkg": "./dist/index.umd.js",
-  "exports": "./dist/index.modern.js",
+  "exports": {
+    "require": "./dist/index.cjs",
+    "default": "./dist/index.modern.js"
+  },
   "scripts": {
     "build": "microbundle",
     "dev": "microbundle watch"
