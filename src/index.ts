@@ -1,6 +1,6 @@
-import {ActorConfig} from "@dfinity/agent";
+import {ActorConfig, hash} from "@dfinity/agent";
 import {assetCanister} from "./did";
-import {fileTypeFromBuffer} from "file-type";
+import mime from "mime-types";
 import pLimit, {LimitFunction} from "p-limit";
 
 type AssetCanister = ReturnType<typeof assetCanister>;
@@ -22,9 +22,9 @@ interface Asset {
 }
 
 interface AssetInsert {
-    (file: File, options?: Omit<Asset, 'fileName' | 'content' | 'contentEncoding'> & Partial<Pick<Asset, 'fileName' | 'contentEncoding'>>): Promise<string>;
+    (file: File, options?: Omit<Asset, 'fileName' | 'content' | 'contentType' | 'contentEncoding'> & Partial<Pick<Asset, 'fileName' | 'contentType' | 'contentEncoding'>>): Promise<string>;
 
-    (bytes: Blob | number[] | Uint8Array, options: Omit<Asset, 'content' | 'contentEncoding'> & Partial<Pick<Asset, 'contentEncoding'>>): Promise<string>;
+    (bytes: Blob | number[] | Uint8Array, options: Omit<Asset, 'content' | 'contentType' | 'contentEncoding'> & Partial<Pick<Asset, 'contentType' | 'contentEncoding'>>): Promise<string>;
 }
 
 interface FileToAsset {
@@ -59,23 +59,6 @@ const isWebWorker =
     typeof self === "object" &&
     self.constructor &&
     self.constructor.name === "DedicatedWorkerGlobalScope";
-
-const crypto: Promise<any> = isBrowser
-    ? Promise.resolve(window.crypto)
-    : isWebWorker
-        ? Promise.resolve(self.crypto)
-        : isNode
-            ? import('crypto')
-            : Promise.resolve();
-
-const hash = async (content: number[]): Promise<number[] | undefined> => {
-    if (isBrowser || isWebWorker) {
-        return Array.from(new Uint8Array(await (await crypto).subtle.digest('SHA-256', new Uint8Array(content))));
-    }
-    if (isNode) {
-        return Array.from((await crypto).createHash('sha256').update(new Uint8Array(content)).digest());
-    }
-}
 
 const inputToAsset: FileToAsset = async (input, options) => {
     let content: number[];
@@ -114,12 +97,11 @@ const inputToAsset: FileToAsset = async (input, options) => {
         path = path + '/';
     }
     const contentEncoding = options?.contentEncoding ?? 'identity';
-    const sha256 = options?.sha256 ?? await hash(content);
+    const sha256 = options?.sha256 ?? Array.from(new Uint8Array(hash(new Uint8Array(content))));
 
-    // If content type is not supplied in either the file or options, detect content type based on magic number
+    // If content type is not supplied in either the file or options, detect content type based on filename (extension)
     if (!contentType) {
-        const {mime = 'application/octet-stream'} = await fileTypeFromBuffer(Uint8Array.from(content)) ?? {};
-        contentType = mime;
+        contentType = mime.lookup(fileName) || 'application/octet-stream';
     }
 
     return {

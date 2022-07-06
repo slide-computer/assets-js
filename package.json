@@ -1,6 +1,6 @@
 {
   "name": "@slide-computer/assets",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Manage assets on an Internet Computer assets canister",
   "repository": "https://github.com/slide-computer/assets-js",
   "keywords": [
@@ -42,12 +42,13 @@
   "author": "Slide",
   "license": "MIT",
   "devDependencies": {
+    "@types/mime": "^2.0.3",
     "microbundle": "^0.15.0",
     "typescript": "^4.7.3"
   },
   "dependencies": {
     "@dfinity/agent": "^0.11.3",
-    "file-type": "^17.1.2",
+    "mime-types": "^2.1.35",
     "p-limit": "^4.0.0"
   }
 }

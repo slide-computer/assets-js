@@ -42,11 +42,10 @@ input.click();
 
 ```ts
 // Read file from disk and upload to asset canister in Node
-// Content type is required for text files, will fallback to 'application/octet-stream' otherwise
 import fs from 'fs';
 
 const file = fs.readFileSync('./example.csv');
-const key = await assetManager.insert(file, {fileName: 'example.png', contentType: 'text/csv'});
+const key = await assetManager.insert(file, {fileName: 'example.csv'});
 ```
 
 ```ts
@@ -82,7 +81,6 @@ const file = fs.readFileSync('./index.html');
 const gzippedFile = pako.gzip(file);
 const key = await assetManager.insert(gzippedFile, {
     fileName: 'index.html',
-    contentType: 'text/html',
     contentEncoding: 'gzip', // Optional (default: 'identity'), supported encodings are 'identity', 'gzip', 'compress', 'deflate' and 'br'
 });
 ```

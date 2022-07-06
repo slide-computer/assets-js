@@ -14,8 +14,8 @@ interface Asset {
     sha256?: number[];
 }
 interface AssetInsert {
-    (file: File, options?: Omit<Asset, 'fileName' | 'content' | 'contentEncoding'> & Partial<Pick<Asset, 'fileName' | 'contentEncoding'>>): Promise<string>;
-    (bytes: Blob | number[] | Uint8Array, options: Omit<Asset, 'content' | 'contentEncoding'> & Partial<Pick<Asset, 'contentEncoding'>>): Promise<string>;
+    (file: File, options?: Omit<Asset, 'fileName' | 'content' | 'contentType' | 'contentEncoding'> & Partial<Pick<Asset, 'fileName' | 'contentType' | 'contentEncoding'>>): Promise<string>;
+    (bytes: Blob | number[] | Uint8Array, options: Omit<Asset, 'content' | 'contentType' | 'contentEncoding'> & Partial<Pick<Asset, 'contentType' | 'contentEncoding'>>): Promise<string>;
 }
 interface InsertAssetEvent {
     key: string;
