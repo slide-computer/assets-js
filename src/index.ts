@@ -220,7 +220,7 @@ export class AssetManager {
     };
 
     delete = async (key: string) => {
-        await this._pLimit(() => this._actor.delete_content({key}));
+        await this._pLimit(() => this._actor.delete_asset({key}));
         this._eventListener({key, type: 'delete'});
     }
 }

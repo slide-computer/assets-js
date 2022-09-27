@@ -81,7 +81,7 @@ export interface _SERVICE {
     'create_chunk': (
         arg_0: { 'content': Array<number>, 'batch_id': BatchId },
     ) => Promise<{ 'chunk_id': ChunkId }>,
-    'delete_content': (arg_0: DeleteAssetArguments) => Promise<undefined>,
+    'delete_asset': (arg_0: DeleteAssetArguments) => Promise<undefined>,
     'get': (
         arg_0: { 'key': Key, 'accept_encodings': Array<string> },
     ) => Promise<{
